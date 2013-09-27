@@ -1,0 +1,21 @@
+This package contains RPGBGPrototype, the "RPG-Browsergame-Prototype". RPGBGPrototype
+is a reference implementation for a very basic PHP based browsergame in RPG style.
+
+  RPGBGPrototype (C) 2012-2013  Stephan Kreutzer, Christian Huke
+
+  RPGBGPrototype is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License version 3 or any later version,
+  as published by the Free Software Foundation.
+
+  RPGBGPrototype is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License 3 for more details.
+
+  You should have received a copy of the GNU Affero General Public License 3
+  along with RPGBGPrototype. If not, see <http://www.gnu.org/licenses/>.
+
+
+See the file $/COPYING for the full license text. See the file $/INSTALL for
+installation instructions. See the file $/AUTHORS for a list of contributors.
+

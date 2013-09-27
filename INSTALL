@@ -1,0 +1,8 @@
+
+  - Copy contents of $/ftp/ into the root directory of your web
+    project including all hidden .htaccess files.
+  - Browse to $/install/install.php from the root directory of
+    your web project, follow the instructions there and complete the
+    installation routine.
+  - Delete the directory $/install/ of your web project.
+
