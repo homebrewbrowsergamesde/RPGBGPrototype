@@ -326,17 +326,8 @@ else if ($step == 2)
 }
 else if ($step == 3)
 {
-    $prefix = "";
     $dropExistingTables = false;
     $keepExistingTables = false;
-
-    if (isset($_POST['prefix']) === true)
-    {
-        if (is_string($_POST['prefix']) === true)
-        {
-            $prefix = $_POST['prefix'];
-        }
-    }
 
     if (isset($_POST['drop_existing_tables']) === true)
     {
@@ -381,7 +372,7 @@ else if ($step == 3)
             {
                 if ($dropExistingTables === true)
                 {
-                    if (Database::Get()->Execute("DROP TABLE IF EXISTS ".$prefix."user") !== true)
+                    if (Database::Get()->ExecuteUnsecure("DROP TABLE IF EXISTS ".Database::Get()->GetPrefix()."user") !== true)
                     {
                         $success = false;
                     }
@@ -397,7 +388,7 @@ else if ($step == 3)
                     $sql .= "IF NOT EXISTS ";
                 }
                 
-                $sql .= "`".$prefix."user` (".
+                $sql .= "`".Database::Get()->GetPrefix()."user` (".
                         "  `id` int(11) NOT NULL AUTO_INCREMENT,".
                         "  `name` varchar(40) COLLATE utf8_bin NOT NULL,".
                         "  `salt` varchar(255) COLLATE utf8_bin NOT NULL,".
@@ -408,7 +399,7 @@ else if ($step == 3)
                         "  UNIQUE KEY `name` (`name`)".
                         ") ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin";
 
-                if (Database::Get()->Execute($sql) !== true)
+                if (Database::Get()->ExecuteUnsecure($sql) !== true)
                 {
                     $success = false;
                 }
@@ -420,7 +411,7 @@ else if ($step == 3)
             {
                 if ($dropExistingTables === true)
                 {
-                    if (Database::Get()->Execute("DROP TABLE IF EXISTS ".$prefix."map_images") !== true)
+                    if (Database::Get()->ExecuteUnsecure("DROP TABLE IF EXISTS ".Database::Get()->GetPrefix()."map_images") !== true)
                     {
                         $success = false;
                     }
@@ -436,14 +427,14 @@ else if ($step == 3)
                     $sql .= "IF NOT EXISTS ";
                 }
                 
-                $sql .= "`".$prefix."map_images` (".
+                $sql .= "`".Database::Get()->GetPrefix()."map_images` (".
                         "  `id` int(11) NOT NULL AUTO_INCREMENT,".
                         "  `image_name` varchar(255) NOT NULL,".
                         "  PRIMARY KEY (`id`),".
                         "  UNIQUE KEY `image_name` (`image_name`)".
                         ") ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin";
 
-                if (Database::Get()->Execute($sql) !== true)
+                if (Database::Get()->ExecuteUnsecure($sql) !== true)
                 {
                     $success = false;
                 }
@@ -455,7 +446,7 @@ else if ($step == 3)
             {
                 if ($dropExistingTables === true)
                 {
-                    if (Database::Get()->Execute("DROP TABLE IF EXISTS ".$prefix."map") !== true)
+                    if (Database::Get()->ExecuteUnsecure("DROP TABLE IF EXISTS ".Database::Get()->GetPrefix()."map") !== true)
                     {
                         $success = false;
                     }
@@ -471,13 +462,13 @@ else if ($step == 3)
                     $sql .= "IF NOT EXISTS ";
                 }
                 
-                $sql .= "`".$prefix."map` (".
+                $sql .= "`".Database::Get()->GetPrefix()."map` (".
                         "  `x` int(11) NOT NULL,".
                         "  `y` int(11) NOT NULL,".
                         "  `map_images_id` int(11) NOT NULL".
                         ") ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin";
 
-                if (Database::Get()->Execute($sql) !== true)
+                if (Database::Get()->ExecuteUnsecure($sql) !== true)
                 {
                     $success = false;
                 }
@@ -489,7 +480,7 @@ else if ($step == 3)
             {
                 if ($dropExistingTables === true)
                 {
-                    if (Database::Get()->Execute("DROP TABLE IF EXISTS ".$prefix."variables_global") !== true)
+                    if (Database::Get()->ExecuteUnsecure("DROP TABLE IF EXISTS ".Database::Get()->GetPrefix()."variables_global") !== true)
                     {
                         $success = false;
                     }
@@ -505,13 +496,13 @@ else if ($step == 3)
                     $sql .= "IF NOT EXISTS ";
                 }
                 
-                $sql .= "`".$prefix."variables_global` (".
+                $sql .= "`".Database::Get()->GetPrefix()."variables_global` (".
                         "  `variable` varchar(255) COLLATE utf8_bin NOT NULL,".
                         "  `value` varchar(255) COLLATE utf8_bin NOT NULL,".
                         "  UNIQUE KEY `name` (`variable`)".
                         ") ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin";
 
-                if (Database::Get()->Execute($sql) !== true)
+                if (Database::Get()->ExecuteUnsecure($sql) !== true)
                 {
                     $success = false;
                 }
@@ -523,7 +514,7 @@ else if ($step == 3)
             {
                 if ($dropExistingTables === true)
                 {
-                    if (Database::Get()->Execute("DROP TABLE IF EXISTS ".$prefix."variables_user") !== true)
+                    if (Database::Get()->ExecuteUnsecure("DROP TABLE IF EXISTS ".Database::Get()->GetPrefix()."variables_user") !== true)
                     {
                         $success = false;
                     }
@@ -539,14 +530,14 @@ else if ($step == 3)
                     $sql .= "IF NOT EXISTS ";
                 }
                 
-                $sql .= "`".$prefix."variables_user` (".
+                $sql .= "`".Database::Get()->GetPrefix()."variables_user` (".
                         "  `variable` varchar(255) COLLATE utf8_bin NOT NULL,".
                         "  `user_id` int(11) NOT NULL,".
                         "  `value` varchar(255) COLLATE utf8_bin NOT NULL,".
                         "  INDEX (`user_id`)".
                         ") ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin";
 
-                if (Database::Get()->Execute($sql) !== true)
+                if (Database::Get()->ExecuteUnsecure($sql) !== true)
                 {
                     $success = false;
                 }
@@ -558,7 +549,7 @@ else if ($step == 3)
             {
                 if ($dropExistingTables === true)
                 {
-                    if (Database::Get()->Execute("DROP TABLE IF EXISTS ".$prefix."inventory") !== true)
+                    if (Database::Get()->ExecuteUnsecure("DROP TABLE IF EXISTS ".Database::Get()->GetPrefix()."inventory") !== true)
                     {
                         $success = false;
                     }
@@ -574,13 +565,13 @@ else if ($step == 3)
                     $sql .= "IF NOT EXISTS ";
                 }
                 
-                $sql .= "`".$prefix."inventory` (".
+                $sql .= "`".Database::Get()->GetPrefix()."inventory` (".
                         "  `user_id` int(11) NOT NULL,".
                         "  `type` int(11) NOT NULL,".
                         "  `amount` int(11) NOT NULL DEFAULT 0".
                         ") ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin";
 
-                if (Database::Get()->Execute($sql) !== true)
+                if (Database::Get()->ExecuteUnsecure($sql) !== true)
                 {
                     $success = false;
                 }
@@ -591,14 +582,14 @@ else if ($step == 3)
 
             if ($success === true)
             {
-                $sql = "INSERT INTO `".$prefix."map_images` (`id`, `image_name`) VALUES".
+                $sql = "INSERT INTO `".Database::Get()->GetPrefix()."map_images` (`id`, `image_name`) VALUES".
                        "(NULL, 'forest.png'),".
                        "(NULL, 'crossway.png'),".
                        "(NULL, 'sawmill.png'),".
                        "(NULL, 'village.png'),".
                        "(NULL, 'ruin.png')";
 
-                if (Database::Get()->Insert($sql) !== true)
+                if (Database::Get()->InsertUnsecure($sql) < 0)
                 {
                     $success = false;
                 }
@@ -606,7 +597,7 @@ else if ($step == 3)
 
             if ($success === true)
             {
-                $sql = "INSERT INTO `".$prefix."map` (`x`, `y`, `map_images_id`) VALUES".
+                $sql = "INSERT INTO `".Database::Get()->GetPrefix()."map` (`x`, `y`, `map_images_id`) VALUES".
                        "(-3, -3, 1), (-2, -3, 1), (-1, -3, 1), (0, -3, 1), (1, -3, 1), (2, -3, 1), (3, -3, 1),".
                        "(-3, -2, 1), (-2, -2, 1), (-1, -2, 1), (0, -2, 1), (1, -2, 1), (2, -2, 1), (3, -2, 1),".
                        "(-3, -1, 1), (-2, -1, 1), (-1, -1, 1), (0, -1, 4), (1, -1, 1), (2, -1, 1), (3, -1, 1),".
@@ -615,7 +606,7 @@ else if ($step == 3)
                        "(-3,  2, 1), (-2,  2, 1), (-1,  2, 1), (0,  2, 1), (1,  2, 1), (2,  2, 1), (3,  2, 1),".
                        "(-3,  3, 1), (-2,  3, 1), (-1,  3, 1), (0,  3, 1), (1,  3, 1), (2,  3, 1), (3,  3, 1)";
 
-                if (Database::Get()->Insert($sql) !== true)
+                if (Database::Get()->InsertUnsecure($sql) < 0)
                 {
                     $success = false;
                 }
@@ -675,8 +666,7 @@ else if ($step == 3)
     }
 
     echo "        <div>\n".
-         "          <form action=\"install.php\" method=\"post\">\n".
-         "            <input type=\"hidden\" name=\"prefix\" value=\"".$prefix."\"/>\n";
+         "          <form action=\"install.php\" method=\"post\">\n";
 
     if ($successInit === true)
     {

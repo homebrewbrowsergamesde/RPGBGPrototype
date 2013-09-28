@@ -173,7 +173,87 @@ class Database
         return $result;
     }
 
-    public function Execute($sql)
+    public function Execute($sql, $arguments, $parameterTypes)
+    {
+        if ($this->IsConnected() !== true)
+        {
+            return -1;
+        }
+
+        $stmt = false;
+
+        try
+        {
+            $stmt = $this->pdo->prepare($sql);
+        }
+        catch (PDOException $ex)
+        {
+            return -2;
+        }
+
+        if ($stmt == false)
+        {
+            return -3;
+        }
+
+        if (is_array($arguments) !== true)
+        {
+            return -4;
+        }
+
+        $argumentsCount = count($arguments);
+
+        if ($argumentsCount <= 0)
+        {
+            return -5;
+        }
+
+        if (is_array($parameterTypes) !== true)
+        {
+            return -6;
+        }
+
+        $parameterTypesCount = count($parameterTypes);
+
+        if ($parameterTypesCount <= 0)
+        {
+            return -7;
+        }
+
+        if ($argumentsCount != $parameterTypesCount)
+        {
+            return -8;
+        }
+
+        for ($i = 0; $i < $argumentsCount; $i++)
+        {
+            if ($stmt->bindParam($i+1, $arguments[$i], $parameterTypes[$i]) == false)
+            {
+                return -9;
+            }
+        }
+
+        if ($stmt->execute() == false)
+        {
+            if (isset($this->pdo->getMessage()[2]) === true)
+            {
+                $this->lastErrorMessage = $this->pdo->getMessage()[2];
+            }
+
+            return -10;
+        }
+
+        $stmt->closeCursor();
+
+        return true;
+    }
+
+    /**
+     * @attention This overloaded method should be used only, if the argument
+     *     for \p $sql is a hard-coded string from a PHP-file.
+     * @see Execute($sql, $arguments, $parameterTypes)
+     */
+    public function ExecuteUnsecure($sql)
     {
         if ($this->IsConnected() !== true)
         {
@@ -195,13 +275,63 @@ class Database
         return false;
     }
 
-    public function Insert($sql)
+    public function Insert($sql, $arguments, $parameterTypes)
     {
-        /**
-         * @todo Add option to retrieve (AUTO_INCREMENT) ID of the inserted
-         *     entry.
-         */
-        return $this->Execute($sql);
+        if ($this->IsConnected() !== true)
+        {
+            return -1;
+        }
+
+        $result = $this->Execute($sql, $arguments, $parameterTypes);
+
+        if ($result !== true)
+        {
+            return $result;
+        }
+
+        $result = $this->pdo->lastInsertId();
+
+        if (is_numeric($result) === true)
+        {
+            if ($result > 0)
+            {
+                return $result;
+            }
+        }
+
+        return -3;
+    }
+
+    /**
+     * @attention This overloaded method should be used only, if the argument
+     *     for \p $sql is a hard-coded string from a PHP-file.
+     * @see Insert($sql, $arguments, $parameterTypes)
+     */
+    public function InsertUnsecure($sql)
+    {
+        if ($this->IsConnected() !== true)
+        {
+            return -1;
+        }
+
+        $result = $this->ExecuteUnsecure($sql);
+
+        if ($result !== true)
+        {
+            return $result;
+        }
+
+        $result = $this->pdo->lastInsertId();
+
+        if (is_numeric($result) === true)
+        {
+            if ($result >= 0)
+            {
+                return $result;
+            }
+        }
+
+        return -3;
     }
 
     public function BeginTransaction()

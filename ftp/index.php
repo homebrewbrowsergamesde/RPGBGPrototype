@@ -91,71 +91,70 @@ else
 {
     require_once("./libraries/database.inc.php");
     
-    echo "<h1>";
-    var_dump(Database::Get()->Query("SELECT `id`,\n".
-                                    "    `salt`,\n".
-                                    "    `password`\n".
-                                    "FROM `".Database::Get()->GetPrefix()."user`\n".
-                                    "WHERE `name` LIKE ?\n",
-                                    array($_POST['name']),
-                                    array(Database::TYPE_STRING)));
-    echo "</h1>";
+    $result = Database::Get()->Query("SELECT `id`,\n".
+                                     "    `salt`,\n".
+                                     "    `password`\n".
+                                     "FROM `".Database::Get()->GetPrefix()."user`\n".
+                                     "WHERE `name` LIKE ?\n",
+                                     array($_POST['name']),
+                                     array(Database::TYPE_STRING));
 
-    $result = NULL;
-
-    if ($result === NULL)
+    if (is_array($result) === true)
     {
-        // The user doesn't exist, so insert him.
-
-        echo "      <div class=\"mainbox\">\n".
-             "        <div class=\"mainbox_body\">\n".
-             "          <p class=\"error\">\n".
-             "            Not implemented yet.\n".
-             "          </p>\n".
-             "        </div>\n".
-             "      </div>\n";
-
-        exit();
-
-        /*
-        require_once("./libraries/gamelib.inc.php");
-
-        $id = insertNewUser($name, $_POST['passwort']);
-
-        if ($id > 0)
+        if (count($result) === 0)
         {
-            $user = array("id" => $id);
+            // The user doesn't exist, so insert him.
+
+            require_once("./libraries/gamelib.inc.php");
+
+            $id = insertNewUser($_POST['name'], $_POST['passwort']);
+
+/*
+            if ($id > 0)
+            {
+                $user = array("id" => $id);
+            }
+            else
+            {
+                $user = NULL;
+            }
+            */
         }
         else
         {
-            $user = NULL;
+            // The user does already exist, he wants to login.
+
+            if ($password === hash('sha512', $salt.$_POST['passwort']))
+            {
+                $user = array("id" => $id);
+            }
+            else
+            {
+                /**
+                 * @todo Security can be improved by not telling that the user
+                 *     basically exists and just the password was incorrect.
+                 */
+
+                echo "        <p>\n".
+                     "          Wrong password. <a href=\"index.php\">Try again</a>.\n".
+                     "        </p>\n".
+                     "    </body>\n".
+                     "</html>\n".
+                     "\n";
+
+                exit();
+            }
         }
-        */
     }
-    else if ($result === true)
+    else
     {
-        // The user does already exist, he wants to login.
-
-        if ($password === hash('sha512', $salt.$_POST['passwort']))
-        {
-            $user = array("id" => $id);
-        }
-        else
-        {
-            /**
-             * @todo Security can be improved by not telling that the user
-             *     basically exists and just the password was incorrect.
-             */
-
-            echo "        <p>\n".
-                 "          Wrong password. <a href=\"index.php\">Try again</a>.\n".
-                 "        </p>\n".
-                 "    </body>\n".
-                 "</html>\n".
-                 "\n";
-
-            exit();
-        }
+        echo '      <div class="mainbox">'.
+             '        <div class="mainbox_body">'.
+             '          <p class="error">'.
+             '            '.LANG_DBCONNECTFAILED.
+             '          </p>'.
+             '        </div>'.
+             '      </div>';
     }
 
     if (is_array($user) === true)

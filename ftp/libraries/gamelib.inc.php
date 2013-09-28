@@ -24,7 +24,7 @@
 
 
 
-require_once(dirname(__FILE__)."/database_connect.inc.php");
+require_once(dirname(__FILE__)."/database.inc.php");
 
 
 
@@ -81,43 +81,55 @@ function generateHTMLFooter()
  * @param[in] $passwort Attribut muss zur direkten Verwendung in SQL-Anweisung
  *     vorbereitet worden sein!
  */
-function insertNewUser($name, $passwort)
+function insertNewUser($name, $password)
 {
-    global $mysql_connection;
-
-    if ($mysql_connection == false)
+    if (Database::Get()->IsConnected() !== true)
     {
         return -1;
     }
 
-    if (mysql_query("BEGIN", $mysql_connection) !== true)
+    if (Database::Get()->BeginTransaction() !== true)
     {
         return -2;
     }
 
-    $salz = md5(uniqid(rand(), true));
-    // Passwörter dürfen _NIE_ (!!!) im Klartext gespeichert
-    // werden!
-    $passwort = hash('sha512', $salz.$passwort);
+    $salt = md5(uniqid(rand(), true));
+    $password = hash('sha512', $salt.$password);
 
-    if (mysql_query("INSERT INTO `user` (`id`,\n".
-                    "    `name`,\n".
-                    "    `salt`,\n".
-                    "    `password`,\n".
-                    "    `positionX`,\n".
-                    "    `positionY`)\n".
-                    "VALUES (NULL,\n".
-                    "    '".$name."',\n".
-                    "    '".$salz."',\n".
-                    "    '".$passwort."',\n".
-                    "    '0',\n".
-                    "    '0')\n",
-                    $mysql_connection) !== true)
+    $asdf = Database::Get()->Insert("INSERT INTO `".Database::Get()->GetPrefix()."user` (`id`,\n".
+                                "    `name`,\n".
+                                "    `salt`,\n".
+                                "    `password`,\n".
+                                "    `positionX`,\n".
+                                "    `positionY`)\n".
+                                "VALUES (?, ?, ?, ?, ?, ?)\n",
+                                array(NULL, $name, $salt, $password, 0, 0),
+                                array(Database::TYPE_NULL, Database::TYPE_STRING, Database::TYPE_STRING, Database::TYPE_STRING, Database::TYPE_INT, Database::TYPE_INT));
+
+    Database::Get()->CommitTransaction();
+
+    var_dump($asdf);
+    exit();
+
+/*
+    if (Database::Get()->Insert("INSERT INTO `".Database::Get()->GetPrefix()."user` (`id`,\n".
+                                "    `name`,\n".
+                                "    `salt`,\n".
+                                "    `password`,\n".
+                                "    `positionX`,\n".
+                                "    `positionY`)\n".
+                                "VALUES (NULL,\n".
+                                "    '".$name."',\n".
+                                "    '".$salt."',\n".
+                                "    '".$password."',\n".
+                                "    '0',\n".
+                                "    '0')\n") !== true)
     {
         mysql_query("ROLLBACK", $mysql_connection);
         return -3;
     }
-
+*/
+/*
     $id = mysql_insert_id($mysql_connection);
 
     if ($id == 0)
@@ -163,6 +175,7 @@ function insertNewUser($name, $passwort)
 
     mysql_query("ROLLBACK", $mysql_connection);
     return -7;
+*/
 }
 
 function setPosition($userID, $positionX, $positionY)
