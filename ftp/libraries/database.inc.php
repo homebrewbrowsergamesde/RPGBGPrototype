@@ -68,8 +68,6 @@ class Database
     }
 
 
-    // Don't forget to update MapParameterTypes() if const definitions
-    // get changed.
     const TYPE_BOOL = PDO::PARAM_BOOL;
     const TYPE_NULL = PDO::PARAM_NULL;
     const TYPE_INT = PDO::PARAM_INT;

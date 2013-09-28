@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2012-2013  Stephan Kreutzer
+/* Copyright (C) 2013  Stephan Kreutzer
  *
  * This file is part of RPGBGPrototype.
  *
@@ -16,17 +16,17 @@
  * along with RPGBGPrototype. If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * @file $/install/0_-1.inc.php
- * @details This file might get copied to $/positioncode/0_-1.inc.php by
- *     the installation routine.
+ * @file $/gui/lang/en/game.lang.php
  * @author Stephan Kreutzer
- * @since 2012-04-14
+ * @since 2013-09-28
  */
 
 
 
-return "<p>\n".
-       "  Dorf Hutmannsweiler.\n".
-       "</p>\n";
+define("LANG_PAGETITLE", "RPGBGPrototype");
+define("LANG_DBCONNECTFAILED", "Can't connect to database.");
+define("LANG_INVALIDSESSION", "No or invalid session.");
+
+
 
 ?>

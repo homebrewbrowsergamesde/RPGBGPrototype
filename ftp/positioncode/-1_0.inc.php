@@ -25,12 +25,8 @@
 
 
 
-require_once(dirname(__FILE__)."/../gamelib.inc.php");
-
-
 return "<p>\n".
        "  Verfallene Ruine ehem. Burg von Hutmannsweiler.\n".
        "</p>\n";
-
 
 ?>

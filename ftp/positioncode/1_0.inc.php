@@ -25,14 +25,14 @@
 
 
 
-require_once(dirname(__FILE__)."/../gamelib.inc.php");
+require_once(dirname(__FILE__)."/../libraries/gamelib.inc.php");
 
 
 
 return "<p>\n".
        "  Sägewerk &bdquo;Hutmannsweiler&ldquo;.\n".
        "</p>\n".
-       generateHTMLDetailPageForm("saegewerk", "init", "init", "Sägewerk betreten.");
+       generateHTMLDetailPageForm("sawmill", "init", "init", "Sägewerk betreten.");
 
 
 ?>

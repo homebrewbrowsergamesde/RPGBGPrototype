@@ -146,18 +146,15 @@ function insertNewUser($name, $password)
 
 function setPosition($userID, $positionX, $positionY)
 {
-    global $mysql_connection;
-
-    if ($mysql_connection == false)
+    if (Database::Get()->IsConnected() !== true)
     {
         return -1;
     }
 
-    if (mysql_query("UPDATE `user`\n".
-                    "SET `positionX`='".$positionX."',\n".
-                    "    `positionY`='".$positionY."'\n".
-                    "WHERE `id`=".$userID."\n",
-                    $mysql_connection) !== true)
+    if (Database::Get()->ExecuteUnsecure("UPDATE `".Database::Get()->GetPrefix()."user`\n".
+                                         "SET `positionX`='".$positionX."',\n".
+                                         "    `positionY`='".$positionY."'\n".
+                                         "WHERE `id`=".$userID."\n") !== true)
     {
         return -2;
     }
@@ -650,9 +647,9 @@ function generateHTMLChooseForm($name, $options)
  */
 function generateHTMLDetailPageForm($target, $name, $value, $display)
 {
-    if (file_exists("./detailpages/".$target.".php") === true)
+    if (file_exists(dirname(__FILE__)."/../detailpages/".$target.".php") === true)
     {
-        return "<form action=\"./detailpages/".$target.".php\" method=\"post\">\n".
+        return "<form action=\"../detailpages/".$target.".php\" method=\"post\">\n".
                "  <input type=\"radio\" name=\"".$name."\" value=\"".$value."\"/>".$display."<br/>\n".
                "  <input type=\"submit\" value=\"OK\" /><br />\n".
                "</form>\n";
@@ -665,7 +662,7 @@ function generateHTMLDetailPageForm($target, $name, $value, $display)
 
 function generateHTMLLeaveDetailPageForm($display)
 {
-    return "<form action=\"../game.php\" method=\"post\">\n".
+    return "<form action=\"../gui/game.php\" method=\"post\">\n".
            "  <input type=\"radio\" name=\"leave_detail_page\" value=\"leave_detail_page\"/>".$display."<br/>\n".
            "  <input type=\"submit\" value=\"OK\" /><br />\n".
            "</form>\n";
