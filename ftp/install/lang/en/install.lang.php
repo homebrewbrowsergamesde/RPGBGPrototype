@@ -72,8 +72,9 @@ define("LANG_STEP2_USERNAMEDESCRIPTION", "Database username");
 define("LANG_STEP2_PASSWORDDESCRIPTION", "Password of that database user");
 define("LANG_STEP2_DATABASENAMEDESCRIPTION", "Name of the database which will hold the tables");
 define("LANG_STEP2_TABLEPREFIXDESCRIPTION", "Prefix for table names (could be empty if no name collusions are expected &ndash; ends usually with an underscore '_')");
-define("LANG_STEP2_RETRYTEXT", "Try to establish connection");
-define("LANG_STEP2_PROCEEDTEXT", "Save and initialize database");
+define("LANG_STEP2_SAVETEXT", "Save settings");
+define("LANG_STEP2_EDITTEXT", "Edit settings");
+define("LANG_STEP2_PROCEEDTEXT", "Confirm settings");
 define("LANG_STEP2_DBCONNECTSUCCEEDED", "Connection to the database was successfully established!");
 // Corresponding with LANG_STEP3_DBCONNECTFAILED.
 define("LANG_STEP2_DBCONNECTFAILED", "Connection to the database couldn't be established. Error description: ");

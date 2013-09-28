@@ -72,8 +72,9 @@ define("LANG_STEP2_USERNAMEDESCRIPTION", "Datenbank-Benutzername");
 define("LANG_STEP2_PASSWORDDESCRIPTION", "Passwort dieses Datenbank-Benutzers");
 define("LANG_STEP2_DATABASENAMEDESCRIPTION", "Name der Datenbank, welche die Tabellen enthalten wird");
 define("LANG_STEP2_TABLEPREFIXDESCRIPTION", "Präfix für Datenbanktabellen (kann leer gelassen werden, wenn keine Namenskollisionen zu erwarten sind &ndash; endet üblicherweise mit einem Unterstrich '_')");
-define("LANG_STEP2_RETRYTEXT", "Verbindungsaufbau versuchen");
-define("LANG_STEP2_PROCEEDTEXT", "Speichern und Datenbank initialisieren");
+define("LANG_STEP2_SAVETEXT", "Einstellungen speichern");
+define("LANG_STEP2_EDITTEXT", "Einstellungen editieren");
+define("LANG_STEP2_PROCEEDTEXT", "Einstellungen bestätigen");
 define("LANG_STEP2_DBCONNECTSUCCEEDED", "Verbindung zur Datenbank konnte erfolgreich hergestellt werden!");
 // Corresponding with LANG_STEP3_DBCONNECTFAILED.
 define("LANG_STEP2_DBCONNECTFAILED", "Verbindung zur Datenbank konnte nicht hergestellt werden. Fehlerbeschreibung: ");

@@ -32,7 +32,7 @@ define("LANG_SUBMITBUTTON", "OK");
 define("LANG_INSTALLDELETEFAILED", "The installation was already completed successfully, but the installation routine was unable to delete itself. Please delete at least the file <tt>\$/install/install.php</tt> or additionally the entire directory <tt>\$/install/</tt> manually.");
 define("LANG_DBCONNECTFAILED", "Can't connect to database.");
 define("LANG_LOGINSUCCESS", "Login was successful!");
-define("LANG_LOGINSUCCESS", "Password incorrect!");
+define("LANG_LOGINFAILED", "Password incorrect!");
 define("LANG_GAMEBUTTON", "Enter game");
 define("LANG_RETRYLOGINBUTTON", "Retry");
 

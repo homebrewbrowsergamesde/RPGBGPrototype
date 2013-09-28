@@ -51,6 +51,7 @@ if (isset($_POST['step']) === true)
     {
         $step = (int)$_POST['step'];
 
+/*
         if ($step == 3 &&
             isset($_POST['retry']) === true)
         {
@@ -58,6 +59,7 @@ if (isset($_POST['step']) === true)
             // settings after one connection was already established successfully).
             $step = 2;
         }
+*/
 
         if ($step == 4 &&
             isset($_POST['init']) === true)
@@ -295,33 +297,43 @@ else if ($step == 2)
              "        </p>\n";
     }
 
-    echo "        <div>\n".
-         "          <form action=\"install.php\" method=\"post\">\n";
-
-    if ($successConnect === true)
+    if (isset($_POST['save']) == false ||
+        $successConnect == false)
     {
-        echo "            <input type=\"hidden\" name=\"step\" value=\"3\"/>\n";
+        echo "        <div>\n".
+             "          <form action=\"install.php\" method=\"post\">\n".
+             "            <input type=\"hidden\" name=\"step\" value=\"2\"/>\n".
+             "            <input type=\"text\" name=\"host\" value=\"".$host."\"/> ".LANG_STEP2_HOSTDESCRIPTION."<br/>\n".
+             "            <input type=\"text\" name=\"username\" value=\"".$username."\"/> ".LANG_STEP2_USERNAMEDESCRIPTION."<br/>\n".
+             "            <input type=\"text\" name=\"password\" value=\"".$password."\"/> ".LANG_STEP2_PASSWORDDESCRIPTION."<br/>\n".
+             "            <input type=\"text\" name=\"database\" value=\"".$database."\"/> ".LANG_STEP2_DATABASENAMEDESCRIPTION."<br/>\n".
+             "            <input type=\"text\" name=\"prefix\" value=\"".$prefix."\"/> ".LANG_STEP2_TABLEPREFIXDESCRIPTION."<br/>\n".
+             "            <input type=\"submit\" name=\"save\" value=\"".LANG_STEP2_SAVETEXT."\" class=\"mainbox_proceed\"/>\n".
+             "          </form>\n".
+             "        </div>\n";
     }
     else
     {
-        echo "            <input type=\"hidden\" name=\"step\" value=\"2\"/>\n";
+        echo "        <div>\n".
+             "          <form action=\"install.php\" method=\"post\">\n".
+             "            <input type=\"hidden\" name=\"step\" value=\"2\"/>\n".
+             "            <input type=\"hidden\" name=\"host\" value=\"".$host."\"/>\n".
+             "            <input type=\"hidden\" name=\"username\" value=\"".$username."\"/>\n".
+             "            <input type=\"hidden\" name=\"password\" value=\"".$password."\"/>\n".
+             "            <input type=\"hidden\" name=\"database\" value=\"".$database."\"/>\n".
+             "            <input type=\"hidden\" name=\"prefix\" value=\"".$prefix."\"/>\n".
+             "            <input type=\"submit\" value=\"".LANG_STEP2_EDITTEXT."\" class=\"mainbox_proceed\"/>\n".
+             "          </form>\n".
+             "        </div>\n".
+             "        <div>\n".
+             "          <form action=\"install.php\" method=\"post\">\n".
+             "            <input type=\"hidden\" name=\"step\" value=\"3\"/>\n".
+             "            <input type=\"submit\" value=\"".LANG_STEP2_PROCEEDTEXT."\" class=\"mainbox_proceed\"/>\n".
+             "          </form>\n".
+             "        </div>\n";
     }
 
-    echo "            <input type=\"text\" name=\"host\" value=\"".$host."\"/> ".LANG_STEP2_HOSTDESCRIPTION."<br/>\n".
-         "            <input type=\"text\" name=\"username\" value=\"".$username."\"/> ".LANG_STEP2_USERNAMEDESCRIPTION."<br/>\n".
-         "            <input type=\"text\" name=\"password\" value=\"".$password."\"/> ".LANG_STEP2_PASSWORDDESCRIPTION."<br/>\n".
-         "            <input type=\"text\" name=\"database\" value=\"".$database."\"/> ".LANG_STEP2_DATABASENAMEDESCRIPTION."<br/>\n".
-         "            <input type=\"text\" name=\"prefix\" value=\"".$prefix."\"/> ".LANG_STEP2_TABLEPREFIXDESCRIPTION."<br/>\n".
-         "            <input type=\"submit\" name=\"retry\" value=\"".LANG_STEP2_RETRYTEXT."\" class=\"mainbox_proceed\"/>\n";
-
-    if ($successConnect === true)
-    {
-        echo "            <input type=\"submit\" value=\"".LANG_STEP2_PROCEEDTEXT."\" class=\"mainbox_proceed\"/>\n";
-    }
-
-    echo "          </form>\n".
-         "        </div>\n".
-         "      </div>\n".
+    echo "      </div>\n".
          "    </div>\n";
 }
 else if ($step == 3)

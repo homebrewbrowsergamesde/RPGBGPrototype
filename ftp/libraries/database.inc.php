@@ -262,17 +262,27 @@ class Database
 
         $result = $this->pdo->query($sql);
 
-        if (get_class($result) === "PDOStatement")
+        if ($result == false)
         {
-            return true;
+            if (isset($this->pdo->errorInfo()[2]) === true)
+            {
+                $this->lastErrorMessage = $this->pdo->errorInfo()[2];
+            }
+
+            return false;
         }
 
-        if (isset($this->pdo->errorInfo()[2]) === true)
+        if (get_class($result) != "PDOStatement")
         {
-            $this->lastErrorMessage = $this->pdo->errorInfo()[2];
+            if (isset($this->pdo->errorInfo()[2]) === true)
+            {
+                $this->lastErrorMessage = $this->pdo->errorInfo()[2];
+            }
+
+            return false;
         }
 
-        return false;
+        return true;
     }
 
     public function Insert($sql, $arguments, $parameterTypes)
