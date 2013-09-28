@@ -31,6 +31,10 @@ define("LANG_PASSWORDFIELD_CAPTION", "Passwort");
 define("LANG_SUBMITBUTTON", "Bestätigen");
 define("LANG_INSTALLDELETEFAILED", "Die Installation wurde bereits erfolgreich durchgeführt, jedoch ist es der Installationsroutine nicht gelungen, sich selbst zu löschen. Bitte löschen Sie mindestens die Datei <tt>\$/install/install.php</tt> oder gleich das ganze Verzeichnis <tt>\$/install/</tt> manuell.");
 define("LANG_DBCONNECTFAILED", "Problem beim Zugriff auf die Datenbank.");
+define("LANG_LOGINSUCCESS", "Die Anmeldung war erfolgreich!");
+define("LANG_LOGINFAILED", "Passwort inkorrekt!");
+define("LANG_GAMEBUTTON", "Spiel betreten");
+define("LANG_RETRYLOGINBUTTON", "Erneut versuchen");
 
 
 

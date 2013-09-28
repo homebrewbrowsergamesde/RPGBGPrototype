@@ -54,6 +54,7 @@ define("LANG_STEP0_WELCOMETEXT", "This is the installation routine of RPGBGProto
                                  "  <li>2D map navigation</li>".
                                  "  <li>Detail pages</li>".
                                  "  <li>Installation routine</li>".
+                                 "  <li>Internationalization (support of multiple languages)</li>".
                                  "</ul>");
 define("LANG_STEP0_PROCEEDTEXT", "Continue");
 

@@ -54,6 +54,7 @@ define("LANG_STEP0_WELCOMETEXT", "Dies ist der Installationsvorgang von RPGBGPro
                                  "  <li>Navigation via 2D-Karte</li>".
                                  "  <li>Detailseiten</li>".
                                  "  <li>Installationsroutine</li>".
+                                 "  <li>Internationalisierung (Mehrsprachigkeit)</li>".
                                  "</ul>");
 define("LANG_STEP0_PROCEEDTEXT", "Weiter");
 

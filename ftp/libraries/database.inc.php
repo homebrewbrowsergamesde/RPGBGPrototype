@@ -158,9 +158,9 @@ class Database
 
         if ($stmt->execute() == false)
         {
-            if (isset($this->pdo->getMessage()[2]) === true)
+            if (isset($this->pdo->errorInfo()[2]) === true)
             {
-                $this->lastErrorMessage = $this->pdo->getMessage()[2];
+                $this->lastErrorMessage = $this->pdo->errorInfo()[2];
             }
 
             return -10;
@@ -235,9 +235,9 @@ class Database
 
         if ($stmt->execute() == false)
         {
-            if (isset($this->pdo->getMessage()[2]) === true)
+            if (isset($this->pdo->errorInfo()[2]) === true)
             {
-                $this->lastErrorMessage = $this->pdo->getMessage()[2];
+                $this->lastErrorMessage = $this->pdo->errorInfo()[2];
             }
 
             return -10;
@@ -267,9 +267,9 @@ class Database
             return true;
         }
 
-        if (isset($this->pdo->getMessage()[2]) === true)
+        if (isset($this->pdo->errorInfo()[2]) === true)
         {
-            $this->lastErrorMessage = $this->pdo->getMessage()[2];
+            $this->lastErrorMessage = $this->pdo->errorInfo()[2];
         }
 
         return false;

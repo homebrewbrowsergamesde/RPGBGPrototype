@@ -96,63 +96,29 @@ function insertNewUser($name, $password)
     $salt = md5(uniqid(rand(), true));
     $password = hash('sha512', $salt.$password);
 
-    $asdf = Database::Get()->Insert("INSERT INTO `".Database::Get()->GetPrefix()."user` (`id`,\n".
-                                "    `name`,\n".
-                                "    `salt`,\n".
-                                "    `password`,\n".
-                                "    `positionX`,\n".
-                                "    `positionY`)\n".
-                                "VALUES (?, ?, ?, ?, ?, ?)\n",
-                                array(NULL, $name, $salt, $password, 0, 0),
-                                array(Database::TYPE_NULL, Database::TYPE_STRING, Database::TYPE_STRING, Database::TYPE_STRING, Database::TYPE_INT, Database::TYPE_INT));
+    $id = Database::Get()->Insert("INSERT INTO `".Database::Get()->GetPrefix()."user` (`id`,\n".
+                                 "    `name`,\n".
+                                 "    `salt`,\n".
+                                 "    `password`,\n".
+                                 "    `positionX`,\n".
+                                 "    `positionY`)\n".
+                                 "VALUES (?, ?, ?, ?, ?, ?)\n",
+                                 array(NULL, $name, $salt, $password, 0, 0),
+                                 array(Database::TYPE_NULL, Database::TYPE_STRING, Database::TYPE_STRING, Database::TYPE_STRING, Database::TYPE_INT, Database::TYPE_INT));
 
-    Database::Get()->CommitTransaction();
-
-    var_dump($asdf);
-    exit();
-
-/*
-    if (Database::Get()->Insert("INSERT INTO `".Database::Get()->GetPrefix()."user` (`id`,\n".
-                                "    `name`,\n".
-                                "    `salt`,\n".
-                                "    `password`,\n".
-                                "    `positionX`,\n".
-                                "    `positionY`)\n".
-                                "VALUES (NULL,\n".
-                                "    '".$name."',\n".
-                                "    '".$salt."',\n".
-                                "    '".$password."',\n".
-                                "    '0',\n".
-                                "    '0')\n") !== true)
+    if ($id <= 0)
     {
-        mysql_query("ROLLBACK", $mysql_connection);
-        return -3;
-    }
-*/
-/*
-    $id = mysql_insert_id($mysql_connection);
-
-    if ($id == 0)
-    {
-        mysql_query("ROLLBACK", $mysql_connection);
+        Database::Get()->RollbackTransaction();
         return -4;
     }
 
 
-    // Initialisierung der Spieler-Daten.
+    // Initialize game data of the user.
 
-    if (mysql_query("INSERT INTO `variables_user` (`variable`,\n".
-                    "    `user_id`,\n".
-                    "    `value`)\n".
-                    "VALUES\n".
-                    "('saegewerk_innen_mann_saege_konversationsstatus', ".$id.", '0'),\n".
-                    "('ruine_schloss_geoeffnet', ".$id.", '0')\n",
-                    $mysql_connection) !== true)
-    {
-        mysql_query("ROLLBACK", $mysql_connection);
-        return -5;
-    }
-
+    /**
+     * @todo Inventory code based on old MySQL function calls.
+     */
+    /*
     require_once(dirname(__FILE__)."/inventorylib.inc.php");
 
     if (mysql_query("INSERT INTO `inventory` (`user_id`,\n".
@@ -167,15 +133,15 @@ function insertNewUser($name, $password)
         mysql_query("ROLLBACK", $mysql_connection);
         return -6;
     }
+    */
 
-    if (mysql_query("COMMIT", $mysql_connection) === true)
+    if (Database::Get()->CommitTransaction() === true)
     {
         return $id;
     }
 
-    mysql_query("ROLLBACK", $mysql_connection);
+    Database::Get()->RollbackTransaction();
     return -7;
-*/
 }
 
 function setPosition($userID, $positionX, $positionY)

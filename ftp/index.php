@@ -89,6 +89,8 @@ if (isset($_POST['name']) !== true ||
 }
 else
 {
+    $user = NULL;
+
     require_once("./libraries/database.inc.php");
     
     $result = Database::Get()->Query("SELECT `id`,\n".
@@ -109,7 +111,6 @@ else
 
             $id = insertNewUser($_POST['name'], $_POST['passwort']);
 
-/*
             if ($id > 0)
             {
                 $user = array("id" => $id);
@@ -118,15 +119,14 @@ else
             {
                 $user = NULL;
             }
-            */
         }
         else
         {
             // The user does already exist, he wants to login.
 
-            if ($password === hash('sha512', $salt.$_POST['passwort']))
+            if ($result[0]['password'] === hash('sha512', $result[0]['salt'].$_POST['passwort']))
             {
-                $user = array("id" => $id);
+                $user = array("id" => $result[0]['id']);
             }
             else
             {
@@ -135,42 +135,51 @@ else
                  *     basically exists and just the password was incorrect.
                  */
 
-                echo "        <p>\n".
-                     "          Wrong password. <a href=\"index.php\">Try again</a>.\n".
-                     "        </p>\n".
-                     "    </body>\n".
-                     "</html>\n".
-                     "\n";
+                echo "      <div class=\"mainbox\">\n".
+                     "        <div class=\"mainbox_body\">\n".
+                     "          <p class=\"error\">\n".
+                     "            ".LANG_LOGINFAILED."\n".
+                     "          </p>\n".
+                     "          <form action=\"index.php\" method=\"post\">\n".
+                     "            <input type=\"submit\" value=\"".LANG_RETRYLOGINBUTTON."\"/><br/>\n".
+                     "          </form>\n".
+                     "        </div>\n".
+                     "      </div>\n";
 
-                exit();
+                $user = NULL;
             }
         }
     }
     else
     {
-        echo '      <div class="mainbox">'.
-             '        <div class="mainbox_body">'.
-             '          <p class="error">'.
-             '            '.LANG_DBCONNECTFAILED.
-             '          </p>'.
-             '        </div>'.
-             '      </div>';
+        echo "      <div class=\"mainbox\">\n".
+             "        <div class=\"mainbox_body\">\n".
+             "          <p class=\"error\">\n".
+             "            ".LANG_DBCONNECTFAILED."\n".
+             "          </p>\n".
+             "        </div>\n".
+             "      </div>\n";
     }
 
     if (is_array($user) === true)
     {
         $_SESSION['user_id'] = $user['id'];
-        $_SESSION['user_name'] = $name;
+        /**
+         * @todo Escape $_POST['name'] for use in session (may find its way
+         *     into HTML output and SQL queries)!
+         */
+        $_SESSION['user_name'] = $_POST['name'];
 
-        echo "        <div>\n".
-             "          Enter <a href=\"gui/game.php\">game</a>.\n".
-             "        </div>\n";
-    }
-    else
-    {
-        echo "        <p>\n".
-             "          DB error.\n".
-             "        </p>\n";
+        echo "      <div class=\"mainbox\">\n".
+             "        <div class=\"mainbox_body\">\n".
+             "          <p class=\"success\">\n".
+             "            ".LANG_LOGINSUCCESS."\n".
+             "          </p>\n".
+             "          <form action=\"gui/game.php\" method=\"post\">\n".
+             "            <input type=\"submit\" value=\"".LANG_GAMEBUTTON."\"/><br/>\n".
+             "          </form>\n".
+             "        </div>\n".
+             "      </div>\n";
     }
 }
 

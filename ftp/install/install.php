@@ -578,7 +578,7 @@ else if ($step == 3)
             }
 
 
-            // Data example map 
+            // Data of map example
 
             if ($success === true)
             {
