@@ -24,9 +24,20 @@
 
 
 
-function VIEWHANDLER_MAIN($input)
+function VIEWHANDLER_MAIN($get, $post)
 {
-    return "Hello, world!";
+    require_once(dirname(__FILE__)."/../../libraries/positioning.inc.php");
+
+    $positioning = new Positioning($_SESSION['user_id']);
+    $position = $positioning->GetPosition();
+
+    require_once(dirname(__FILE__)."/../components/map.inc.php");
+
+    $map = new Map(5, 5);
+    
+    $html = $map->GetHTML($position['x'], $position['y']);
+
+    return $html;
 }
 
 function CSSHANDLER_MAIN()

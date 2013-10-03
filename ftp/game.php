@@ -185,7 +185,7 @@ if (strlen($error) == 0)
 {
     try
     {
-        $result = $handler($_POST);
+        $result = $handler($_GET, $_POST);
 
         if (is_string($result) === true)
         {
