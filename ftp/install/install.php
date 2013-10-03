@@ -32,7 +32,7 @@ require_once(getLanguageFile("install"));
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n".
      "<!DOCTYPE html\n".
      "    PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"\n".
-     "    \"http://www.w3.org/TR/xhtml1/DTD/xhtml-strict.dtd\">\n".
+     "    \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n".
      "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">\n".
      "  <head>\n".
      "    <title>".LANG_PAGETITLE."</title>\n".

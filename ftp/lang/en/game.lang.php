@@ -16,7 +16,7 @@
  * along with RPGBGPrototype. If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * @file $/gui/lang/en/game.lang.php
+ * @file $/lang/en/game.lang.php
  * @author Stephan Kreutzer
  * @since 2013-09-28
  */

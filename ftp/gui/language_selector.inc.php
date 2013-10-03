@@ -71,8 +71,9 @@ function getHTMLLanguageSelector($targetPage,
 
             $html .= "<div class=\"".$cssClassLanguageselector."\">\n".
                      "  ".LANG_LANGUAGESELECTOR_DESCRIPTION."<br/>\n".
-                     "  <form action=\"".$targetPage."\" method=\"POST\" class=\"".$cssClassLanguageselectorForm."\">\n".
-                     "    <select name=\"language\" size=\"1\" class=\"".$cssClassLanguageselectorFormSelect."\">\n";
+                     "  <form action=\"".$targetPage."\" method=\"post\" class=\"".$cssClassLanguageselectorForm."\">\n".
+                     "    <div>\n".
+                     "      <select name=\"language\" size=\"1\" class=\"".$cssClassLanguageselectorFormSelect."\">\n";
 
             foreach ($languages as $language => $displayName)
             {
@@ -80,16 +81,17 @@ function getHTMLLanguageSelector($targetPage,
                 {
                     // Doesn't work on Mozilla Firefox, but is XHTML standard. Standard
                     // wins over browser implementation.
-                    $html .= "      <option value=\"".$language."\" selected=\"selected\">".$displayName."</option>\n";
+                    $html .= "        <option value=\"".$language."\" selected=\"selected\">".$displayName."</option>\n";
                 }
                 else
                 {
-                    $html .= "      <option value=\"".$language."\">".$displayName."</option>\n";
+                    $html .= "        <option value=\"".$language."\">".$displayName."</option>\n";
                 }
             }
 
-            $html .= "    </select>\n".
-                     "    <input type=\"submit\" value=\"".LANG_LANGUAGESELECTOR_SUBMITBUTTON."\" class=\"".$cssClassLanguageselectorFormSubmitbutton."\"/>\n".
+            $html .= "      </select>\n".
+                     "      <input type=\"submit\" value=\"".LANG_LANGUAGESELECTOR_SUBMITBUTTON."\" class=\"".$cssClassLanguageselectorFormSubmitbutton."\"/>\n".
+                     "    </div>\n".
                      "  </form>\n".
                      "</div>\n";
         }

@@ -154,7 +154,7 @@ class Database
             }
         }
 
-        if ($stmt->execute() == false)
+        if (@$stmt->execute() == false)
         {
             if (isset($this->pdo->errorInfo()[2]) === true)
             {
@@ -231,7 +231,7 @@ class Database
             }
         }
 
-        if ($stmt->execute() == false)
+        if (@$stmt->execute() == false)
         {
             if (isset($this->pdo->errorInfo()[2]) === true)
             {
@@ -301,6 +301,11 @@ class Database
 
         if (is_numeric($result) === true)
         {
+            if ($result == 0)
+            {
+                return true;
+            }
+
             if ($result > 0)
             {
                 return $result;
