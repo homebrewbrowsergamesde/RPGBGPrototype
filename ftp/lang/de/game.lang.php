@@ -26,6 +26,9 @@
 define("LANG_PAGETITLE", "RPGBGPrototype");
 define("LANG_DBCONNECTFAILED", "Problem beim Zugriff auf die Datenbank.");
 define("LANG_INVALIDSESSION", "Keine oder ungültige Session.");
+define("LANG_NOVIEW_BEFORE", "Die Ansicht &bdquo;");
+define("LANG_NOVIEW_AFTER", "&ldquo; ist nicht vorhanden.");
+define("LANG_ERROR", "Ein Fehler ist aufgetreten.");
 
 
 

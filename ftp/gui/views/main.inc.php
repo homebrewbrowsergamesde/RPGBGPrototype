@@ -16,19 +16,23 @@
  * along with RPGBGPrototype. If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * @file $/lang/en/game.lang.php
+ * @file $/gui/views/main.inc.php
+ * @details Main view of the game.
  * @author Stephan Kreutzer
- * @since 2013-09-28
+ * @since 2013-10-03
  */
 
 
 
-define("LANG_PAGETITLE", "RPGBGPrototype");
-define("LANG_DBCONNECTFAILED", "Can't connect to database.");
-define("LANG_INVALIDSESSION", "No or invalid session.");
-define("LANG_NOVIEW_BEFORE", "The view \"");
-define("LANG_NOVIEW_AFTER", "\" doesn't exist.");
-define("LANG_ERROR", "An error has occurred.");
+function VIEWHANDLER_MAIN($input)
+{
+    return "Hello, world!";
+}
+
+function CSSHANDLER_MAIN()
+{
+    return array();
+}
 
 
 
