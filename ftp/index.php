@@ -45,7 +45,7 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n".
 if (isset($_POST['name']) !== true ||
     isset($_POST['passwort']) !== true)
 {
-    require_once("./gui/language_selector.inc.php");
+    require_once("./gui/components/language_selector.inc.php");
     echo getHTMLLanguageSelector("index.php");
 
     echo "        <div class=\"mainbox\">\n".

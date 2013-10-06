@@ -24,7 +24,7 @@
 
 
 
-require_once(dirname(__FILE__)."/../libraries/languagelib.inc.php");
+require_once(dirname(__FILE__)."/../../libraries/languagelib.inc.php");
 
 
 

@@ -83,7 +83,7 @@ if (isset($_GET['stepjump']) === true)
 if ($step == 0)
 {
     // Language selection only for the first step.
-    require_once("../gui/language_selector.inc.php");
+    require_once("../gui/components/language_selector.inc.php");
     echo getHTMLLanguageSelector("install.php");
 
     echo "    <div class=\"mainbox\">\n".
