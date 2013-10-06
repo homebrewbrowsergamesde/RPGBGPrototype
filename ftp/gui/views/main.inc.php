@@ -77,9 +77,23 @@ function VIEWHANDLER_MAIN()
     $html = "";
 
 
-    // TODO: Position code.
+    require_once(dirname(__FILE__)."/../components/positioncode.inc.php");
 
+    $positionCode = new PositionCode;
+    $positionHTML = $positionCode->GetHTML($position['x'], $position['y']);
 
+    {
+        $positionNew = $positioning->GetPosition();
+
+        if ($positionNew['x'] !== $position['x'] ||
+            $positionNew['y'] !== $position['y'])
+        {
+            // Position code has changed the position - get HTML for the new position.
+
+            $position = $positionNew;
+            $positionHTML = $positionCode->GetHTML($position['x'], $position['y']);
+        }
+    }
 
     require_once(dirname(__FILE__)."/../components/map.inc.php");
 
@@ -90,7 +104,6 @@ function VIEWHANDLER_MAIN()
 
     $navigation = new Navigation();
     $navigationHTML = $navigation->GetHTML();
-
 
     require_once(dirname(__FILE__)."/../../libraries/languagelib.inc.php");
     require_once(getLanguageFile("main", "gui/views"));
@@ -106,6 +119,8 @@ function VIEWHANDLER_MAIN()
              $mapHTML.
              "\n".
              $navigationHTML.
+             "\n".
+             $positionHTML.
              "<hr/>\n".
              "<form action=\"logout.php\" method=\"post\">\n".
              "  <div>\n".
